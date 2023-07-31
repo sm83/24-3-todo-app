@@ -1,0 +1,20 @@
+.input {
+  font-size: 16px;
+  margin: 10px auto;
+  padding: 8px 0 8px 0;
+  border: 0;
+  border-radius: 10px;
+  font-weight: 400;
+  font-family: Roboto;
+  text-align: center;
+  width: 60%;
+}
+
+.button {
+  padding: 8px;
+  margin: 4px;
+  border-radius: 10px;
+  border: 0;
+  font-size: 16px;
+  cursor: pointer;
+}

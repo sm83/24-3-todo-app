@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Urgent",
+    "columnId": 1
+  },
+  {
+    "name": "Default",
+    "columnId": 2
+  },
+  {
+    "name": "Mem",
+    "columnId": 3
+  }
+]

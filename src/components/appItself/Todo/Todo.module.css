@@ -1,0 +1,47 @@
+.todoBlock {
+  background-color: white;
+  color: black;
+
+  margin: 7.5px 7.5px;
+  display: grid;
+  border: 2px solid gray;
+  border-radius: 10px;
+  overflow: hidden;
+
+  min-width: 250px;
+  max-width: 280px;
+
+  flex-basis: 400px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.todoNameArea {
+  padding: 8px;
+  border-bottom: 1px solid gray;
+}
+
+.greenModifier {
+  background-color: #5dcf59;
+}
+
+.todoName {
+  text-align: left;
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 18px;
+
+  float: left;
+  display: flex;
+}
+
+.todoDescriptionArea {
+  padding: 8px;
+}
+
+.todoDescription {
+  text-align: left;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 12px;
+}

@@ -1,0 +1,12 @@
+.noTask {
+  font-size: 25px;
+  margin: 30px auto;
+}
+
+.todosContainer {
+  display: grid;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,11 @@
+.todoDelete {
+  width: 20px;
+  height: 20px;
+}
+
+.todoDeleteBtn {
+  float: right;
+  display: flex;
+
+  cursor: pointer;
+}

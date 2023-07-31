@@ -1,0 +1,21 @@
+.columnNameArea {
+  background-color: blueviolet;
+  border: 1px white solid;
+
+  display: flex;
+
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.columnName {
+  width: 100%;
+  display: block;
+  text-align: center;
+  padding: 8px;
+  font-family: Roboto;
+}
+
+.columnArea {
+  border-right: 1px black solid;
+}

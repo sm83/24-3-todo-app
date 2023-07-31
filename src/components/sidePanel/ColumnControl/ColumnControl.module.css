@@ -1,0 +1,14 @@
+.columnControlArea {
+  /* background-color: paleturquoise; */
+  width: auto;
+  padding: 15px;
+
+  border-bottom: 1px black solid;
+}
+
+.text1 {
+  padding-top: 0px;
+  font-family: 'Roboto';
+  font-size: 24px;
+  font-weight: 400;
+}

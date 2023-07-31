@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.todoFormArea {
+  /* background-color: palevioletred; */
+
+  border-bottom: 1px black solid;
+  padding-bottom: 20px;
+}
+
+.text1 {
+  padding-top: 20px;
+  font-family: 'Roboto';
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.input {
+  font-size: 16px;
+  margin: 10px auto;
+  border: 0;
+  font-weight: 400;
+  font-family: Roboto;
+  text-align: center;
+  display: grid;
+  width: 100%;
+  padding: 8px 0 8px 0;
+  border: black 1px solid;
+  border-radius: 10px;
+}
+
+.button {
+  padding: 8px;
+  margin: 4px;
+  border-radius: 10px;
+  border: 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.formBlock {
+  display: block;
+  width: 100%;
+  margin: auto;
+}
+
+.test1 {
+  font-size: 48px;
+  color: black;
+}
+
+textarea {
+  min-height: 100px;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.inputsArea {
+  margin: 10px;
+}

@@ -1,0 +1,42 @@
+.App {
+  padding: 0;
+  margin: 0;
+}
+
+.sidePanelArea {
+  display: block;
+  float: left;
+  height: 100vh;
+  width: 350px;
+
+  border-right: 1px black solid;
+}
+
+.sidePanel {
+  margin-top: 105px;
+  overflow: auto;
+  height: 80%;
+  text-align: center;
+  background-color: #112d49;
+}
+
+.sidePanelScroll {
+  display: block;
+  z-index: 0;
+}
+
+.ofset-1-x1 {
+  height: 15px;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+.appItself {
+  background-color: #112d49;
+
+  display: block;
+  overflow: auto;
+  height: 100vh;
+}

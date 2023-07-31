@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.bannerArea {
+  display: block;
+
+  border-bottom: black 1px solid;
+  margin: 0;
+  padding: 10px 0 10px 0;
+
+  height: 85px;
+  width: 350px;
+
+  background-color: #193a6b;
+  position: fixed;
+
+  z-index: 150;
+}
+
+.banner {
+  display: table;
+  margin: auto;
+}
+
+.bannerText {
+  display: table-cell;
+  height: 85px;
+  vertical-align: middle;
+  font-size: 48px;
+  padding-left: 15px;
+  font-weight: 800;
+  font-family: 'Roboto';
+}
+
+.dog {
+  display: table-cell;
+  height: 85px;
+  width: 85px;
+}
