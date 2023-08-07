@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppDispatch } from '../../../hooks';
-import { useAppSelector } from '../../../hooks';
 
 import SelectColumnList from './SelectColumnList';
 
 import styles from './TodoForm.module.css';
-import { addTodo } from '../../../store/todoSlice';
+import { addTodo, fetchTodos } from '../../../store/todoSlice';
 
 const TodoForm = () => {
   const [newTodoElementName, setNewTodoElementName] = useState<string>('');
@@ -14,31 +13,11 @@ const TodoForm = () => {
 
   const dispatch = useAppDispatch();
 
-  const todosLocal = useAppSelector((state) => state.todos.list);
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
 
-  //generates unique id for new todo
-  const genUniqueId = () => {
-    const maxValue: number = 2048;
-
-    let generated: boolean = false;
-    let newId: number = 0;
-
-    while (!generated) {
-      newId = Math.floor(Math.random() * maxValue);
-      for (let i = 0; i < todosLocal.length; i++) {
-        if (todosLocal[i].uniqueId == newId) {
-          break;
-        }
-        generated = true;
-      }
-    }
-
-    return newId;
-  };
-
-  const newId = genUniqueId();
-
-  const handleNewTodo = (event: any) => {
+  const handleAddTodo = (event: any) => {
     event.preventDefault();
 
     dispatch(
@@ -46,8 +25,6 @@ const TodoForm = () => {
         name: newTodoElementName,
         description: newTodoElementDesc,
         columnId: todoColumnId,
-        uniqueId: newId,
-        done: false,
       })
     );
 
@@ -71,7 +48,7 @@ const TodoForm = () => {
     <div className={styles.todoFormArea}>
       <h1 className={styles.text1}>Add new task</h1>
       <div>
-        <form className={styles.formBlock} onSubmit={handleNewTodo}>
+        <form className={styles.formBlock} onSubmit={handleAddTodo}>
           <div className={styles.inputsArea}>
             <label>
               <input
@@ -93,7 +70,7 @@ const TodoForm = () => {
             </label>
           </div>
 
-          <button className={styles.button} onClick={genUniqueId} type="submit">
+          <button className={styles.button} type="submit">
             Add
           </button>
         </form>

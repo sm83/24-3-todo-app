@@ -1,14 +1,28 @@
-[
-  {
-    "name": "Urgent",
-    "columnId": 1
-  },
-  {
-    "name": "Default",
-    "columnId": 2
-  },
-  {
-    "name": "Mem",
-    "columnId": 3
-  }
-]
+{
+  "columns": [
+    {
+      "name": "Urgent",
+      "columnId": 1
+    },
+    {
+      "name": "Default",
+      "columnId": 2
+    },
+    {
+      "name": "Mem",
+      "columnId": 3
+    },
+    {
+      "name": "MegaMem",
+      "columnId": 4
+    },
+    {
+      "name": "MegaMem",
+      "columnId": 5
+    },
+    {
+      "name": "MegaMem",
+      "columnId": 6
+    }
+  ]
+}

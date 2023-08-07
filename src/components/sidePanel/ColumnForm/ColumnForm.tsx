@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useAppDispatch } from '../../../hooks';
 
 import styles from './ColumnForm.module.css';
 import { addColumn } from '../../../store/columnSlice';
@@ -10,37 +10,12 @@ const ColumnForm = () => {
 
   const dispatch = useAppDispatch();
 
-  const columnsLocal = useAppSelector((state) => state.columns.list);
-
-  //generates unique id for new todo
-  const genUniqueId = () => {
-    const maxValue: number = 2048;
-
-    let generated: boolean = false;
-    let newId: number = 0;
-
-    while (!generated) {
-      newId = Math.floor(Math.random() * maxValue);
-      for (let i = 0; i < columnsLocal.length; i++) {
-        if (columnsLocal[i].columnId == newId) {
-          break;
-        }
-        generated = true;
-      }
-    }
-
-    return newId;
-  };
-
-  const newId = genUniqueId();
-
   const handleNewColumn = (event: any) => {
     event.preventDefault();
 
     dispatch(
       addColumn({
         name: newColumnName,
-        columnId: newId,
       })
     );
   };
