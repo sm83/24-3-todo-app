@@ -16,7 +16,7 @@
 }
 
 .columnNameArea {
-  padding: 15px;
+  padding: 12px;
 }
 
 .columnName {
@@ -27,4 +27,16 @@
 
   float: left;
   display: flex;
+}
+
+.columnDeleteBtn {
+  float: right;
+  display: flex;
+  cursor: pointer;
+  /* background-color: red; */
+}
+
+.columnDelete {
+  width: 20px;
+  height: 20px;
 }

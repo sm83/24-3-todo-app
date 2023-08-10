@@ -4,6 +4,7 @@ import {
   createAsyncThunk,
   AnyAction,
 } from '@reduxjs/toolkit';
+import { act } from 'react-dom/test-utils';
 
 // import columnStartData from '../data/columns0.json';
 
@@ -24,14 +25,16 @@ const initialState: ColumnList = {
   columnError: null,
 };
 
+const columnJsonServer = 'http://localhost:3001/columns';
+
 export const fetchColumns = createAsyncThunk<
   Column[],
   undefined,
   { rejectValue: string }
 >('columns/fetchColumns', async function (_, { rejectWithValue }) {
   try {
-    const response = await fetch('http://localhost:3001/columns');
-    console.log(response);
+    const response = await fetch(columnJsonServer);
+    // console.log(response);
 
     if (!response.ok) {
       throw new Error();
@@ -54,7 +57,7 @@ export const addColumn = createAsyncThunk<
     name: name,
   };
 
-  const response = await fetch('http://localhost:3001/columns', {
+  const response = await fetch(columnJsonServer, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(column),
@@ -65,6 +68,22 @@ export const addColumn = createAsyncThunk<
   }
 
   return (await response.json()) as Column;
+});
+
+export const deleteColumn = createAsyncThunk<
+  number | string,
+  number,
+  { rejectValue: string }
+>('columns/deleteColumn', async function (columnId, { rejectWithValue }) {
+  const response = await fetch(`${columnJsonServer}/${columnId}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    return rejectWithValue("Can't delete column. Server error.");
+  }
+
+  return columnId;
 });
 
 const columnSlice = createSlice({
@@ -80,6 +99,14 @@ const columnSlice = createSlice({
       .addCase(fetchColumns.fulfilled, (state, action) => {
         state.list = action.payload;
         state.loading = false;
+      })
+      .addCase(addColumn.fulfilled, (state, action) => {
+        state.list.push(action.payload);
+      })
+      .addCase(deleteColumn.fulfilled, (state, action) => {
+        state.list = state.list.filter(
+          (column) => column.columnId !== action.payload
+        );
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
         // console.log(action.payload);

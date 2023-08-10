@@ -11,18 +11,6 @@
     {
       "name": "Mem",
       "columnId": 3
-    },
-    {
-      "name": "MegaMem",
-      "columnId": 4
-    },
-    {
-      "name": "MegaMem",
-      "columnId": 5
-    },
-    {
-      "name": "MegaMem",
-      "columnId": 6
     }
   ]
 }

@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../../hooks';
 
-import ColumnSide from '../ColumnSide/ColumnSide';
+import ColumnSide from '../ColumnElement/ColumnElement';
 
 const ColumnControlList = ({}: {}) => {
   return (
