@@ -57,6 +57,20 @@
       "body": "{\"done\":false}"
     },
     {
+      "uniqueId": 6,
+      "name": "Ah, Freeman.",
+      "description": "I apologize, Mr. Freeman, but I couldn't risk opening that door until I was sure you'd scoured the area. This is the last entrance to the Lambda Complex—every other has been sealed off to contain the invasion. When we realized that you might actually make it here, we drew straws to see who should stay behind to let you through. Obviously, I drew the short one. My colleagues are waiting at the tip of the Lambda reactor...waiting for you, I mean. The reactor is shut down right now, but you can activate it on your way up. You'll have to flood the core anyway to get into the teleportation labs. You're not authorized to know about those...but I can see you already know a great deal more than any one man is supposed to.",
+      "columnId": 3,
+      "done": false
+    },
+    {
+      "uniqueId": 7,
+      "name": "Scream",
+      "description": "Well, I'll let you out, but I'm warning you...it's hell out there. It's completely under military control. You'll have to sneak and fight your way from one end to the other, and I don't expect you'll meet many of our peers along the way. But if you do survive and somehow make it across the base, you'll end up at the Lambda Complex, where the rest of the science team has taken shelter. I wouldn't venture there myself, but I will let them know that you are coming.",
+      "columnId": 3,
+      "done": false
+    },
+    {
       "uniqueId": 8,
       "name": "Put that down.",
       "description": "This is the supply depot for our first survey team. Quite a few handsome specimens were collected from the borderworld and brought back this way—uhh, before the survey members started being collected themselves, that is. We suspect there is an immense portal over there, created by the intense concentration of a single powerful being. You will know it when you see it. I hate to say this, Gordon, but you must kill it, if you can.",
@@ -113,25 +127,32 @@
       "uniqueId": 15
     },
     {
-      "name": "mem",
-      "description": "test",
-      "columnId": 1,
-      "done": false,
-      "uniqueId": 20
-    },
-    {
-      "name": "Put that down",
-      "description": "Put that down",
+      "name": "Alright.",
+      "description": "Alright.",
       "columnId": 7,
       "done": false,
-      "uniqueId": 21
+      "uniqueId": 16
     },
     {
-      "name": "Put that down",
-      "description": "Put that down",
-      "columnId": 6,
+      "name": "Alright.",
+      "description": "Alright.",
+      "columnId": 7,
       "done": false,
-      "uniqueId": 22
+      "uniqueId": 17
+    },
+    {
+      "name": "Alright.",
+      "description": "Alright.",
+      "columnId": 10,
+      "done": false,
+      "uniqueId": 18
+    },
+    {
+      "name": "Alright.",
+      "description": "Alright. Alright.",
+      "columnId": 17,
+      "done": false,
+      "uniqueId": 19
     }
   ]
 }

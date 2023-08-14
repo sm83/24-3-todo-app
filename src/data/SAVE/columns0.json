@@ -1,0 +1,72 @@
+{
+  "columns": [
+    {
+      "name": "Urgent",
+      "columnId": 1
+    },
+    {
+      "name": "Default",
+      "columnId": 2
+    },
+    {
+      "name": "Mem",
+      "columnId": 3
+    },
+    {
+      "name": "HyperMem",
+      "columnId": 4
+    },
+    {
+      "name": "August-new",
+      "columnId": 5
+    },
+    {
+      "name": "Test column 1",
+      "columnId": 6
+    },
+    {
+      "name": "Test column 2",
+      "columnId": 7
+    },
+    {
+      "name": "Test column 3",
+      "columnId": 8
+    },
+    {
+      "name": "Test column 4",
+      "columnId": 9
+    },
+    {
+      "name": "Testing side panel vertical scrollbar",
+      "columnId": 10
+    },
+    {
+      "name": "Negr",
+      "columnId": 11
+    },
+    {
+      "name": "Negr",
+      "columnId": 12
+    },
+    {
+      "name": "Negr",
+      "columnId": 13
+    },
+    {
+      "name": "Negr",
+      "columnId": 14
+    },
+    {
+      "name": "Negr",
+      "columnId": 15
+    },
+    {
+      "name": "Negr",
+      "columnId": 16
+    },
+    {
+      "name": "Negr",
+      "columnId": 17
+    }
+  ]
+}
