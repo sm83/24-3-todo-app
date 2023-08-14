@@ -18,6 +18,8 @@ const ColumnForm = () => {
         name: newColumnName,
       })
     );
+
+    setNewColumnName('');
   };
 
   const handleInput = (e: any) => {

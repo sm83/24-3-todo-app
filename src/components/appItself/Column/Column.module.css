@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 .columnNameArea {
   background-color: blueviolet;
   border: 1px white solid;
@@ -5,7 +7,7 @@
   display: flex;
 
   min-width: 250px;
-  max-width: 300px;
+  max-width: 350px;
 }
 
 .columnName {
@@ -13,9 +15,11 @@
   display: block;
   text-align: center;
   padding: 8px;
-  font-family: Roboto;
+  font-weight: 400;
+  font-family: 'Roboto';
 }
 
 .columnArea {
   border-right: 1px black solid;
+  /* overflow-y: scroll; */
 }

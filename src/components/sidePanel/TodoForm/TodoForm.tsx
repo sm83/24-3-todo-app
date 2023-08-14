@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../../hooks';
 import SelectColumnList from './SelectColumnList';
 
 import styles from './TodoForm.module.css';
-import { addTodo, fetchTodos } from '../../../store/todoSlice';
+import { addTodo, fetchTodo } from '../../../store/todoSlice';
 
 const TodoForm = () => {
   const [newTodoElementName, setNewTodoElementName] = useState<string>('');
@@ -14,7 +14,7 @@ const TodoForm = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchTodos());
+    dispatch(fetchTodo());
   }, [dispatch]);
 
   const handleAddTodo = (event: any) => {

@@ -5,6 +5,8 @@ import {
   AnyAction,
 } from '@reduxjs/toolkit';
 
+// import axios from 'axios';
+
 type Todo = {
   uniqueId: number;
   name: string;
@@ -25,21 +27,50 @@ const initialState: TodoList = {
   todoError: null,
 };
 
-export const fetchTodos = createAsyncThunk<
+// axios
+//   .get('http://localhost:3000/todos')
+//   .then((response) => {
+//     console.log('axios:');
+//     console.log(response);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+export const fetchTodo = createAsyncThunk<
   Todo[],
   undefined,
   { rejectValue: string }
->('todos/fetchTodos', async function (_, { rejectWithValue }) {
-  const response = await fetch('http://localhost:3000/todos');
+>('todos/fetchTodo', async function (_, { rejectWithValue }) {
+  try {
+    const response = await fetch('http://localhost:3000/todos');
 
-  if (!response.ok) {
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    const todoData = await response.json();
+
+    return todoData;
+  } catch (error) {
     return rejectWithValue('Server error!');
   }
-
-  const todoData = await response.json();
-
-  return todoData;
 });
+
+// export const fetchTodos = createAsyncThunk<
+//   Todo[],
+//   undefined,
+//   { rejectValue: string }
+// >('todos/fetchTodos', async function (_, { rejectWithValue }) {
+//   await axios
+//     .get<Todo[]>('http://localhost:3000/todos')
+//     .then((response) => {
+//       return response.data;
+//     })
+//     .catch((error) => {
+//       return rejectWithValue(`${error}`);
+//     });
+// });
 
 export const addTodo = createAsyncThunk<
   Todo,
@@ -52,24 +83,28 @@ export const addTodo = createAsyncThunk<
 >(
   'todos/addTodo',
   async function ({ name, description, columnId }, { rejectWithValue }) {
-    const todo = {
-      name: name,
-      description: description,
-      columnId: columnId,
-      done: false,
-    };
+    try {
+      const todo = {
+        name: name,
+        description: description,
+        columnId: columnId,
+        done: false,
+      };
 
-    const response = await fetch('http://localhost:3000/todos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(todo),
-    });
+      const response = await fetch('http://localhost:3000/todos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(todo),
+      });
 
-    if (!response.ok) {
+      if (!response.ok) {
+        throw new Error();
+      }
+
+      return (await response.json()) as Todo;
+    } catch (error) {
       return rejectWithValue("Can't add task. Server error.");
     }
-
-    return (await response.json()) as Todo;
   }
 );
 
@@ -80,29 +115,36 @@ export const toggleDoneTodo = createAsyncThunk<
 >(
   'todos/toggleDoneTodo',
   async function (uniqueId, { rejectWithValue, getState }) {
-    const todo = getState().todos.list.find(
-      (todo) => todo.uniqueId === uniqueId
-    );
+    try {
+      const todo = getState().todos.list.find(
+        (todo) => todo.uniqueId === uniqueId
+      );
 
-    if (todo) {
-      const response = await fetch(`http://localhost:3000/todos/${uniqueId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          done: !todo.done,
-        }),
-      });
+      if (todo) {
+        const response = await fetch(
+          `http://localhost:3000/todos/${uniqueId}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              done: !todo.done,
+            }),
+          }
+        );
 
-      if (!response.ok) {
-        rejectWithValue("Can't toggle status. Server error.");
+        if (!response.ok) {
+          throw new Error();
+        }
+
+        return (await response.json()) as Todo;
       }
 
-      return (await response.json()) as Todo;
+      return rejectWithValue('No such todo in the list');
+    } catch (error) {
+      return rejectWithValue("Can't toggle status. Server error.");
     }
-
-    return rejectWithValue('No such todo in the list');
   }
 );
 
@@ -111,15 +153,19 @@ export const deleteTodo = createAsyncThunk<
   number,
   { rejectValue: string }
 >('todos/deleteTodo', async function (uniqueId, { rejectWithValue }) {
-  const response = await fetch(`http://localhost:3000/todos/${uniqueId}`, {
-    method: 'DELETE',
-  });
+  try {
+    const response = await fetch(`http://localhost:3000/todos/${uniqueId}`, {
+      method: 'DELETE',
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    return uniqueId;
+  } catch (error) {
     return rejectWithValue("Can't delete task. Server error.");
   }
-
-  return uniqueId;
 });
 
 //slice here
@@ -129,11 +175,11 @@ const todoSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTodos.pending, (state) => {
+      .addCase(fetchTodo.pending, (state) => {
         state.loading = true;
         state.todoError = null;
       })
-      .addCase(fetchTodos.fulfilled, (state, action) => {
+      .addCase(fetchTodo.fulfilled, (state, action) => {
         state.list = action.payload;
         state.loading = false;
       })
@@ -157,6 +203,7 @@ const todoSlice = createSlice({
         );
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
+        console.log(action.payload);
         state.todoError = action.payload;
         state.loading = false;
       });
@@ -166,5 +213,10 @@ const todoSlice = createSlice({
 export default todoSlice.reducer;
 
 function isError(action: AnyAction) {
-  return action.type.endsWith('rejected');
+  const matcherEndsWith = 'Todo/rejected';
+
+  if (action.type.endsWith(matcherEndsWith)) {
+    console.log(action.type.endsWith(matcherEndsWith));
+  }
+  return action.type.endsWith(matcherEndsWith);
 }

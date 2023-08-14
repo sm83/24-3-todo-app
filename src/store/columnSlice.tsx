@@ -4,7 +4,6 @@ import {
   createAsyncThunk,
   AnyAction,
 } from '@reduxjs/toolkit';
-import { act } from 'react-dom/test-utils';
 
 // import columnStartData from '../data/columns0.json';
 
@@ -27,11 +26,11 @@ const initialState: ColumnList = {
 
 const columnJsonServer = 'http://localhost:3001/columns';
 
-export const fetchColumns = createAsyncThunk<
+export const fetchColumn = createAsyncThunk<
   Column[],
   undefined,
   { rejectValue: string }
->('columns/fetchColumns', async function (_, { rejectWithValue }) {
+>('columns/fetchColumn', async function (_, { rejectWithValue }) {
   try {
     const response = await fetch(columnJsonServer);
     // console.log(response);
@@ -53,21 +52,25 @@ export const addColumn = createAsyncThunk<
   { name: string },
   { rejectValue: string }
 >('columns/addColumn', async function ({ name }, { rejectWithValue }) {
-  const column = {
-    name: name,
-  };
+  try {
+    const column = {
+      name: name,
+    };
 
-  const response = await fetch(columnJsonServer, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(column),
-  });
+    const response = await fetch(columnJsonServer, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(column),
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    return (await response.json()) as Column;
+  } catch (error) {
     return rejectWithValue("Can't add column. Server error.");
   }
-
-  return (await response.json()) as Column;
 });
 
 export const deleteColumn = createAsyncThunk<
@@ -75,15 +78,19 @@ export const deleteColumn = createAsyncThunk<
   number,
   { rejectValue: string }
 >('columns/deleteColumn', async function (columnId, { rejectWithValue }) {
-  const response = await fetch(`${columnJsonServer}/${columnId}`, {
-    method: 'DELETE',
-  });
+  try {
+    const response = await fetch(`${columnJsonServer}/${columnId}`, {
+      method: 'DELETE',
+    });
 
-  if (!response.ok) {
+    if (!response.ok) {
+      throw new Error();
+    }
+
+    return columnId;
+  } catch (error) {
     return rejectWithValue("Can't delete column. Server error.");
   }
-
-  return columnId;
 });
 
 const columnSlice = createSlice({
@@ -92,11 +99,11 @@ const columnSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchColumns.pending, (state) => {
+      .addCase(fetchColumn.pending, (state) => {
         state.loading = true;
         state.columnError = null;
       })
-      .addCase(fetchColumns.fulfilled, (state, action) => {
+      .addCase(fetchColumn.fulfilled, (state, action) => {
         state.list = action.payload;
         state.loading = false;
       })
@@ -119,6 +126,10 @@ const columnSlice = createSlice({
 export default columnSlice.reducer;
 
 function isError(action: AnyAction) {
-  // console.log(action.type);
-  return action.type.endsWith('rejected');
+  const matcherEndsWith = 'Column/rejected';
+
+  if (action.type.endsWith(matcherEndsWith)) {
+    console.log(action.type.endsWith(matcherEndsWith));
+  }
+  return action.type.endsWith(matcherEndsWith);
 }

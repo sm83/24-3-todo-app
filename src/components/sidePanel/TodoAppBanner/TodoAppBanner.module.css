@@ -5,13 +5,11 @@
 
   border-bottom: black 1px solid;
   margin: 0;
-  padding: 10px 0 10px 0;
 
-  height: 85px;
+  height: 104px;
   width: 350px;
 
   background-color: #193a6b;
-  position: fixed;
 
   z-index: 150;
 }
@@ -19,6 +17,7 @@
 .banner {
   display: table;
   margin: auto;
+  padding: 10px 0 10px 0;
 }
 
 .bannerText {

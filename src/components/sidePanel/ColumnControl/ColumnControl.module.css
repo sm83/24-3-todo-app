@@ -1,7 +1,7 @@
 .columnControlArea {
   /* background-color: paleturquoise; */
   width: auto;
-  padding: 15px;
+  padding-bottom: 15px;
 
   border-bottom: 1px black solid;
 }
@@ -11,4 +11,5 @@
   font-family: 'Roboto';
   font-size: 24px;
   font-weight: 400;
+  padding-top: 20px;
 }
