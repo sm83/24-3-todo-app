@@ -12,7 +12,11 @@
       "name": "wake up bro",
       "description": "nigger, bro, you need to run",
       "columnId": 0,
-      "done": false
+      "done": false,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"done\":false}"
     },
     {
       "uniqueId": 2,
@@ -26,7 +30,12 @@
       "name": "wake up",
       "description": "nigger you need to run",
       "columnId": 0,
-      "done": false
+      "done": false,
+      "method": "PATCH",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"done\":false}"
     },
     {
       "uniqueId": 4,
@@ -40,7 +49,12 @@
       "name": "Alright.",
       "description": "You can't be serious.",
       "columnId": 0,
-      "done": false
+      "done": false,
+      "method": "PATCH",
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"done\":false}"
     },
     {
       "uniqueId": 6,
@@ -62,6 +76,13 @@
       "description": "This is the supply depot for our first survey team. Quite a few handsome specimens were collected from the borderworld and brought back this way—uhh, before the survey members started being collected themselves, that is. We suspect there is an immense portal over there, created by the intense concentration of a single powerful being. You will know it when you see it. I hate to say this, Gordon, but you must kill it, if you can.",
       "columnId": 1,
       "done": false
+    },
+    {
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": "{\"name\":\"aaa\",\"description\":\"aaaaaaaaaa\",\"columnId\":0,\"done\":false}",
+      "uniqueId": 9
     }
   ]
 }

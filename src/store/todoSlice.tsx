@@ -5,7 +5,7 @@ import {
   AnyAction,
 } from '@reduxjs/toolkit';
 
-// import axios from 'axios';
+import axios from 'axios';
 
 type Todo = {
   uniqueId: number;
@@ -27,15 +27,9 @@ const initialState: TodoList = {
   todoError: null,
 };
 
-// axios
-//   .get('http://localhost:3000/todos')
-//   .then((response) => {
-//     console.log('axios:');
-//     console.log(response);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+export const todosInstance = axios.create({
+  baseURL: 'http://localhost:3000/todos',
+});
 
 export const fetchTodo = createAsyncThunk<
   Todo[],
@@ -43,33 +37,38 @@ export const fetchTodo = createAsyncThunk<
   { rejectValue: string }
 >('todos/fetchTodo', async function (_, { rejectWithValue }) {
   try {
-    const response = await fetch('http://localhost:3000/todos');
+    const response = await todosInstance.get('http://localhost:3000/todos');
 
-    if (!response.ok) {
+    if (response.statusText != 'OK') {
       throw new Error();
     }
 
-    const todoData = await response.json();
+    // const todoData = await response.json();
 
-    return todoData;
+    return response.data;
   } catch (error) {
     return rejectWithValue('Server error!');
   }
 });
 
-// export const fetchTodos = createAsyncThunk<
+// export const fetchTodo = createAsyncThunk<
 //   Todo[],
 //   undefined,
 //   { rejectValue: string }
-// >('todos/fetchTodos', async function (_, { rejectWithValue }) {
-//   await axios
-//     .get<Todo[]>('http://localhost:3000/todos')
-//     .then((response) => {
-//       return response.data;
-//     })
-//     .catch((error) => {
-//       return rejectWithValue(`${error}`);
-//     });
+// >('todos/fetchTodo', async function (_, { rejectWithValue }) {
+//   try {
+//     const response = await fetch('http://localhost:3000/todos');
+
+//     if (!response.ok) {
+//       throw new Error();
+//     }
+
+//     const todoData = await response.json();
+
+//     return todoData;
+//   } catch (error) {
+//     return rejectWithValue('Server error!');
+//   }
 // });
 
 export const addTodo = createAsyncThunk<
@@ -82,7 +81,7 @@ export const addTodo = createAsyncThunk<
   { rejectValue: string }
 >(
   'todos/addTodo',
-  async function ({ name, description, columnId }, { rejectWithValue }) {
+  async ({ name, description, columnId }, { rejectWithValue }) => {
     try {
       const todo = {
         name: name,
