@@ -27,49 +27,25 @@ const initialState: TodoList = {
   todoError: null,
 };
 
-export const todosInstance = axios.create({
-  baseURL: 'http://localhost:3000/todos',
-});
+const todosJsonServer = 'http://localhost:3000/todos';
 
 export const fetchTodo = createAsyncThunk<
   Todo[],
   undefined,
   { rejectValue: string }
->('todos/fetchTodo', async function (_, { rejectWithValue }) {
+>('todos/fetchTodo', async (_, { rejectWithValue }) => {
   try {
-    const response = await todosInstance.get('http://localhost:3000/todos');
+    const response = await axios.get(todosJsonServer);
 
     if (response.statusText != 'OK') {
       throw new Error();
     }
-
-    // const todoData = await response.json();
 
     return response.data;
   } catch (error) {
     return rejectWithValue('Server error!');
   }
 });
-
-// export const fetchTodo = createAsyncThunk<
-//   Todo[],
-//   undefined,
-//   { rejectValue: string }
-// >('todos/fetchTodo', async function (_, { rejectWithValue }) {
-//   try {
-//     const response = await fetch('http://localhost:3000/todos');
-
-//     if (!response.ok) {
-//       throw new Error();
-//     }
-
-//     const todoData = await response.json();
-
-//     return todoData;
-//   } catch (error) {
-//     return rejectWithValue('Server error!');
-//   }
-// });
 
 export const addTodo = createAsyncThunk<
   Todo,
@@ -90,17 +66,15 @@ export const addTodo = createAsyncThunk<
         done: false,
       };
 
-      const response = await fetch('http://localhost:3000/todos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(todo),
+      const response = await axios.post(todosJsonServer, {
+        ...todo,
       });
 
-      if (!response.ok) {
+      if (response.statusText != 'Created') {
         throw new Error();
       }
 
-      return (await response.json()) as Todo;
+      return (await response.data) as Todo;
     } catch (error) {
       return rejectWithValue("Can't add task. Server error.");
     }
@@ -111,53 +85,41 @@ export const toggleDoneTodo = createAsyncThunk<
   Todo,
   number,
   { rejectValue: string; state: { todos: TodoList } }
->(
-  'todos/toggleDoneTodo',
-  async function (uniqueId, { rejectWithValue, getState }) {
-    try {
-      const todo = getState().todos.list.find(
-        (todo) => todo.uniqueId === uniqueId
-      );
+>('todos/toggleDoneTodo', async (uniqueId, { rejectWithValue, getState }) => {
+  try {
+    const todo = getState().todos.list.find(
+      (todo) => todo.uniqueId === uniqueId
+    );
 
-      if (todo) {
-        const response = await fetch(
-          `http://localhost:3000/todos/${uniqueId}`,
-          {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              done: !todo.done,
-            }),
-          }
-        );
+    if (todo) {
+      const response = await axios.patch(`${todosJsonServer}/${uniqueId}`, {
+        done: !todo.done,
+      });
 
-        if (!response.ok) {
-          throw new Error();
-        }
-
-        return (await response.json()) as Todo;
+      if (response.statusText != 'OK') {
+        throw new Error();
       }
 
-      return rejectWithValue('No such todo in the list');
-    } catch (error) {
-      return rejectWithValue("Can't toggle status. Server error.");
+      return (await response.data) as Todo;
     }
+
+    return rejectWithValue('No such todo in the list');
+  } catch (error) {
+    return rejectWithValue("Can't toggle status. Server error.");
   }
-);
+});
 
 export const deleteTodo = createAsyncThunk<
   number | string,
   number,
   { rejectValue: string }
->('todos/deleteTodo', async function (uniqueId, { rejectWithValue }) {
+>('todos/deleteTodo', async (uniqueId, { rejectWithValue }) => {
   try {
-    const response = await fetch(`http://localhost:3000/todos/${uniqueId}`, {
+    const response = await axios.delete(`${todosJsonServer}/${uniqueId}`, {
       method: 'DELETE',
     });
 
-    if (!response.ok) {
+    if (response.statusText != 'OK') {
       throw new Error();
     }
 

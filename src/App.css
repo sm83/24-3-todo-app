@@ -27,18 +27,16 @@
 }
 
 .sidePanelScroll::-webkit-scrollbar {
-  width: 1em;
+  width: 10px;
 }
 
 .sidePanelScroll::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  scrollbar-color: red;
 }
 
 .sidePanelScroll::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-  scrollbar-color: red;
+  background-color: slategray;
+  border-radius: 3px;
 }
 
 .ofset-1-x1 {
@@ -59,4 +57,17 @@ h1 {
 
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.appItself::-webkit-scrollbar {
+  height: 10px;
+}
+
+.appItself::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.appItself::-webkit-scrollbar-thumb {
+  background-color: slategray;
+  border-radius: 3px;
 }

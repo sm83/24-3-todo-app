@@ -5,7 +5,7 @@ import {
   AnyAction,
 } from '@reduxjs/toolkit';
 
-// import columnStartData from '../data/columns0.json';
+import axios from 'axios';
 
 type Column = {
   name: string;
@@ -30,18 +30,16 @@ export const fetchColumn = createAsyncThunk<
   Column[],
   undefined,
   { rejectValue: string }
->('columns/fetchColumn', async function (_, { rejectWithValue }) {
+>('columns/fetchColumn', async (_, { rejectWithValue }) => {
   try {
-    const response = await fetch(columnJsonServer);
+    const response = await axios.get(columnJsonServer);
     // console.log(response);
 
-    if (!response.ok) {
+    if (response.statusText != 'OK') {
       throw new Error();
     }
 
-    const columnsData = await response.json();
-
-    return [{ name: 'Unsorted', columnId: 0 }, ...columnsData];
+    return [{ name: 'Unsorted', columnId: 0 }, ...response.data];
   } catch (error) {
     return rejectWithValue('Connection refused.');
   }
@@ -51,23 +49,21 @@ export const addColumn = createAsyncThunk<
   Column,
   { name: string },
   { rejectValue: string }
->('columns/addColumn', async function ({ name }, { rejectWithValue }) {
+>('columns/addColumn', async ({ name }, { rejectWithValue }) => {
   try {
     const column = {
       name: name,
     };
 
-    const response = await fetch(columnJsonServer, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(column),
+    const response = await axios.post(columnJsonServer, {
+      ...column,
     });
 
-    if (!response.ok) {
+    if (response.statusText != 'Created') {
       throw new Error();
     }
 
-    return (await response.json()) as Column;
+    return (await response.data) as Column;
   } catch (error) {
     return rejectWithValue("Can't add column. Server error.");
   }
@@ -77,13 +73,11 @@ export const deleteColumn = createAsyncThunk<
   number | string,
   number,
   { rejectValue: string }
->('columns/deleteColumn', async function (columnId, { rejectWithValue }) {
+>('columns/deleteColumn', async (columnId, { rejectWithValue }) => {
   try {
-    const response = await fetch(`${columnJsonServer}/${columnId}`, {
-      method: 'DELETE',
-    });
+    const response = await axios.delete(`${columnJsonServer}/${columnId}`, {});
 
-    if (!response.ok) {
+    if (response.statusText != 'OK') {
       throw new Error();
     }
 

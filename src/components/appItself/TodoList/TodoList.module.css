@@ -19,11 +19,21 @@
 }
 
 .todosContainerBackground {
-  /* background-color: red; */
   height: calc(100% - 37px);
-
-  /* overflow-y: scroll; */
 
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.todosContainerBackground::-webkit-scrollbar {
+  width: 10px;
+}
+
+.todosContainerBackground::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.todosContainerBackground::-webkit-scrollbar-thumb {
+  background-color: slategray;
+  border-radius: 3px;
 }
